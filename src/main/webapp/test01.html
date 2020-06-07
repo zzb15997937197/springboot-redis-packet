@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+    for (var i=0;i<2000;i++){
+        //发生ajax请求,2分钟发送完10万次,异步请求
+            var url = "../redis/cache/breakdown";
+        var data ="username=zhangsan"+i ;
+        $.ajax({
+            "url": url,
+            "data": data,
+            "type": "post",
+            "dataType": "json",
+            "success": function(json) {
+                if (json.state == 200) {
+
+                }else if (json.state == 406) {
+                    alert("用户名已经存在！请重新输入！");
+                }else if (json.state == 407) {
+                    alert("用户名为空，请重新输入！");
+                }else if(json.state == 500){
+                    alert("更新失败！")
+                }
+            }
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
